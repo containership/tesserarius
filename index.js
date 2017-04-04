@@ -77,9 +77,9 @@ class Tesserarius {
         const rules_to_add = _.difference(_.keys(new_fingerprints), _.keys(existing_fingerprints));
         const rules_to_remove = _.difference(_.keys(existing_fingerprints), _.keys(new_fingerprints));
 
-        async.parallel([
+        async.series([
             (callback) => {
-                async.each(rules_to_add, (fingerprint, callback) => {
+                async.eachSeries(rules_to_add, (fingerprint, callback) => {
                     const rule = new_fingerprints[fingerprint];
                     this.add_rule(chain, _.cloneDeep(rule.options), () => {
                         return callback();
@@ -87,7 +87,7 @@ class Tesserarius {
                 }, callback);
             },
             (callback) => {
-                async.each(rules_to_remove, (fingerprint, callback) => {
+                async.eachSeries(rules_to_remove, (fingerprint, callback) => {
                     const rule = existing_fingerprints[fingerprint];
                     this.delete_rule(chain, _.cloneDeep(rule.options), () => {
                         return callback();
