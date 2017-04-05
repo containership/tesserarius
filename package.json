@@ -1,6 +1,6 @@
 {
   "name": "tesserarius",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Basic iptables manipulation in nodejs",
   "main": "index.js",
   "scripts": {
